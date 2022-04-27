@@ -16,6 +16,7 @@ import (
 	}
 ***/
 
+// Restaurant contains basic details of a restaurant
 type Restaurant struct {
 	Name     string   `json:"name"`
 	Id       int      `json:"id"`
@@ -25,19 +26,23 @@ type Restaurant struct {
 	Hours    []string `json:"open_hours"`
 }
 
+// Restaurants contains a list of all Restaurants
 type Restaurants struct {
 	List []Restaurant
 }
 
+// New creates new Restaurants instance
 func New() *Restaurants {
 	res := Restaurants{}
 	return &res
 }
 
+// GetAllRestaurants returns a list of all the Restaurants in database
 func (r *Restaurants) GetAllRestaurants() *Restaurants {
 	return r
 }
 
+// GetRestaurant returns a Restaurant for a given restaurant name
 func (r *Restaurants) GetRestaurant(restaurantName string) (*Restaurant, error) {
 	for _, res := range r.List {
 		if res.Name == restaurantName {
@@ -47,6 +52,7 @@ func (r *Restaurants) GetRestaurant(restaurantName string) (*Restaurant, error) 
 	return nil, fmt.Errorf("restaurant not found: %s", restaurantName)
 }
 
+// AddRestaurants adds a list of given Restaurants to database. Returns list with ids
 func (r *Restaurants) AddRestaurants(resList []Restaurant) []Restaurant {
 	for i := 0; i < len(resList); i++ {
 		if len(r.List) != 0 {
