@@ -7,8 +7,8 @@ import (
 	"context"
 	"log"
 
-	"github.com/AkankshaNichrelay/TableFinder/handler"
-	"github.com/AkankshaNichrelay/TableFinder/restaurant"
+	"github.com/AkankshaNichrelay/TableFinder/internal/handler"
+	"github.com/AkankshaNichrelay/TableFinder/internal/restaurant"
 	"github.com/google/wire"
 )
 

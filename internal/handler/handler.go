@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/AkankshaNichrelay/TableFinder/restaurant"
+	"github.com/AkankshaNichrelay/TableFinder/internal/restaurant"
 	"github.com/go-chi/chi"
 )
 
