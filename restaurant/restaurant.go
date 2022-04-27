@@ -5,6 +5,17 @@ import (
 	"log"
 )
 
+/*** Example Restaurant Values
+	Restaurant{
+		Name:     "Anatolia",
+		Id:       1,
+		Location: "123 Magazine St, New Orleans",
+		Ratings:  4.5,
+		Cuisine:  "Mediterranean",
+		Hours:    []string{"Mon-Fri: 10:00AM-9:00PM", "Sat-Sun: 11:00AM-10:00PM"},
+	}
+***/
+
 type Restaurant struct {
 	Name     string   `json:"name"`
 	Id       int      `json:"id"`
