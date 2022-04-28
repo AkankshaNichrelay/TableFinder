@@ -18,6 +18,12 @@ type CacheClient struct {
 	cache CacheAccessor
 }
 
+// New ...
+func New(cache CacheAccessor) *CacheClient {
+	cc := CacheClient{cache: cache}
+	return &cc
+}
+
 // Get ...
 func (cc *CacheClient) Get(key string) (interface{}, error) {
 	ctx := context.Background()
