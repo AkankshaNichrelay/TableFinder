@@ -3,6 +3,8 @@ package restaurant
 import (
 	"fmt"
 	"log"
+
+	"github.com/AkankshaNichrelay/TableFinder/internal/cache"
 )
 
 /*** Example Restaurant Values
@@ -28,12 +30,13 @@ type Restaurant struct {
 
 // Restaurants contains a list of all Restaurants
 type Restaurants struct {
-	List []Restaurant
+	cache *cache.CacheClient
+	List  []Restaurant
 }
 
 // New creates new Restaurants instance
-func New() *Restaurants {
-	res := Restaurants{}
+func New(cache *cache.CacheClient) *Restaurants {
+	res := Restaurants{cache: cache}
 	return &res
 }
 
