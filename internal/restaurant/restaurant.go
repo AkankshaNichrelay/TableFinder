@@ -31,13 +31,13 @@ type Restaurant struct {
 
 // Restaurants contains a list of all Restaurants
 type Restaurants struct {
-	cache *cache.CacheClient
-	db    *database.Mysql
-	List  []Restaurant // TODO: This will be replaced by cache
+	cache *cache.Client
+	db    database.DBAccessor
+	List  []Restaurant // TODO: This will be replaced by cache & db. For now consider this as DB
 }
 
 // New creates new Restaurants instance
-func New(cache *cache.CacheClient, db *database.Mysql) *Restaurants {
+func New(cache *cache.Client, db database.DBAccessor) *Restaurants {
 	res := Restaurants{cache: cache, db: db}
 	return &res
 }
