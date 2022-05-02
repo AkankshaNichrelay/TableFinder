@@ -8,6 +8,7 @@ import (
 	"log"
 
 	"github.com/AkankshaNichrelay/TableFinder/internal/cache"
+	"github.com/AkankshaNichrelay/TableFinder/internal/database"
 	"github.com/AkankshaNichrelay/TableFinder/internal/handler"
 	"github.com/AkankshaNichrelay/TableFinder/internal/redis"
 	"github.com/AkankshaNichrelay/TableFinder/internal/restaurant"
@@ -23,6 +24,7 @@ func InitializeAndRun(ctx context.Context, logger *log.Logger) (*handler.Handler
 			redis.NewRedisConfig,
 			cacheSet,
 			cache.New,
+			database.New,
 			restaurant.New,
 			handler.New,
 		),

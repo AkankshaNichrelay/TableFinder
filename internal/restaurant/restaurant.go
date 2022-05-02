@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/AkankshaNichrelay/TableFinder/internal/cache"
+	"github.com/AkankshaNichrelay/TableFinder/internal/database"
 )
 
 /*** Example Restaurant Values
@@ -31,12 +32,13 @@ type Restaurant struct {
 // Restaurants contains a list of all Restaurants
 type Restaurants struct {
 	cache *cache.CacheClient
-	List  []Restaurant
+	db    *database.Mysql
+	List  []Restaurant // TODO: This will be replaced by cache
 }
 
 // New creates new Restaurants instance
-func New(cache *cache.CacheClient) *Restaurants {
-	res := Restaurants{cache: cache}
+func New(cache *cache.CacheClient, db *database.Mysql) *Restaurants {
+	res := Restaurants{cache: cache, db: db}
 	return &res
 }
 
