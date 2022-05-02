@@ -11,3 +11,6 @@ wire:
 build:
 	@echo "building app"
 	@go build .\cmd\$(APP)
+
+run:
+	@.\$(APP).exe
