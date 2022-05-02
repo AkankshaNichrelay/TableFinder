@@ -8,12 +8,14 @@ import (
 	"github.com/go-chi/chi"
 )
 
+// Handler used for handling HTTP server requests
 type Handler struct {
 	Router      *chi.Mux
 	log         *log.Logger
 	restaurants *restaurant.Restaurants
 }
 
+// New returns a new Handler instance
 func New(lg *log.Logger, res *restaurant.Restaurants) *Handler {
 	mux := chi.NewRouter()
 
@@ -32,6 +34,7 @@ func New(lg *log.Logger, res *restaurant.Restaurants) *Handler {
 	return &h
 }
 
+// getHome returns default landing page
 func (h *Handler) getHome(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Welcome To TableFinder!"))
 }
