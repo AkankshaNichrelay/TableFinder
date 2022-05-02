@@ -1,0 +1,4 @@
+version: "3.9"
+
+# TODO: Add docker images for Redis and SQL for testing
+# TODO: Dockerize the app
