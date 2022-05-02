@@ -11,7 +11,7 @@ type Client struct {
 	cache Accessor
 }
 
-// New ...
+// New returns a new Cache Client instance
 func New(cache Accessor) *Client {
 	cc := Client{cache: cache}
 	return &cc

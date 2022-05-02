@@ -10,11 +10,13 @@ import (
 	"github.com/go-chi/render"
 )
 
+// GetAllRestaurants returns list of all Restaurants
 func (h *Handler) GetAllRestaurants(w http.ResponseWriter, r *http.Request) {
 	resList := h.restaurants.GetAllRestaurants()
 	render.JSON(w, r, resList)
 }
 
+// GetRestaurant returns the given restaurant details if found
 func (h *Handler) GetRestaurant(w http.ResponseWriter, r *http.Request) {
 	restaurant := chi.URLParam(r, "restaurant")
 	res, err := h.restaurants.GetRestaurant(restaurant)
@@ -25,6 +27,7 @@ func (h *Handler) GetRestaurant(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, res)
 }
 
+// AddRestaurants adds the given list of restaurants
 func (h *Handler) AddRestaurants(w http.ResponseWriter, r *http.Request) {
 	res := restaurant.Restaurants{}
 
@@ -39,6 +42,7 @@ func (h *Handler) AddRestaurants(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, resList)
 }
 
+// RemoveRestaurants ...
 // func (h *Handler) RemoveRestaurants(w http.ResponseWriter, r *http.Request) {
 // 	resIds := []int{}
 // 	err := json.NewDecoder(r.Body).Decode(&resIds)
