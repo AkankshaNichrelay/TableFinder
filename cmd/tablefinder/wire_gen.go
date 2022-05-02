@@ -23,11 +23,11 @@ func InitializeAndRun(ctx context.Context, logger *log.Logger) (*handler.Handler
 	config := redis.NewRedisConfig()
 	client := redis.New(logger, config)
 	cacheClient := cache.New(client)
-	mysql, err := database.New()
+	mySQL, err := database.New(logger)
 	if err != nil {
 		return nil, err
 	}
-	restaurants := restaurant.New(cacheClient, mysql)
+	restaurants := restaurant.New(cacheClient, mySQL)
 	handlerHandler := handler.New(logger, restaurants)
 	return handlerHandler, nil
 }
@@ -35,4 +35,6 @@ func InitializeAndRun(ctx context.Context, logger *log.Logger) (*handler.Handler
 // wire.go:
 
 // cacheSet associates redis client struct with cacheAccessor interface
-var cacheSet = wire.NewSet(redis.New, wire.Bind(new(cache.CacheAccessor), new(*redis.Client)))
+var cacheSet = wire.NewSet(redis.New, wire.Bind(new(cache.Accessor), new(*redis.Client)))
+
+var dbSet = wire.NewSet(database.New, wire.Bind(new(database.DBAccessor), new(*database.MySQL)))

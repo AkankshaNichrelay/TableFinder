@@ -1,8 +1,9 @@
 package database
 
 import (
+	"context"
 	"database/sql"
-	"fmt"
+	"log"
 
 	"github.com/go-sql-driver/mysql"
 )
@@ -15,19 +16,22 @@ import (
 // 	Database string
 // }
 
-type Mysql struct {
+// Mysql database
+type MySQL struct {
 	// config *Config
-	db *sql.DB
+	log *log.Logger
+	db  *sql.DB
 }
 
-func New() (*Mysql, error) {
-	fmt.Println("Inside database New")
+// New creates a new MySQL client instance
+func New(log *log.Logger) (*MySQL, error) {
+	// TODO: Put these values into config file
 	config := mysql.Config{
 		User:   "root",
 		Passwd: "root",
 		Net:    "tcp",
 		Addr:   "127.0.0.1:3306",
-		DBName: "test",
+		DBName: "tablefinder",
 	}
 
 	db, err := sql.Open("mysql", config.FormatDSN())
@@ -37,19 +41,21 @@ func New() (*Mysql, error) {
 
 	pingErr := db.Ping()
 	if pingErr != nil {
-		fmt.Println("Ping Err", pingErr)
+		log.Println("Ping Err", pingErr)
 		return nil, pingErr
 	}
-	fmt.Println("Connected!")
+	log.Println("MySQL Database Connection established.")
 
-	mysql := Mysql{
-		db: db,
+	mysql := MySQL{
+		log: log,
+		db:  db,
 	}
 
 	return &mysql, nil
 }
 
-// func (ms *Mssql) connect() error {
-// 	connParams := url.Values{}
-// 	connParams.Add("")
-// }
+// FetchRows takes the query and arguments to return count of rows returned MySQL
+func (sql *MySQL) FetchRows(ctx context.Context, tag string, result interface{}, query string, args ...interface{}) (int, error) {
+	// TODO: Add logic to fetch Rows
+	return 0, nil
+}

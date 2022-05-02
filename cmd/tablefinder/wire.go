@@ -16,7 +16,9 @@ import (
 )
 
 // cacheSet associates redis client struct with cacheAccessor interface
-var cacheSet = wire.NewSet(redis.New, wire.Bind(new(cache.CacheAccessor), new(*redis.Client)))
+var cacheSet = wire.NewSet(redis.New, wire.Bind(new(cache.Accessor), new(*redis.Client)))
+
+var dbSet = wire.NewSet(database.New, wire.Bind(new(database.DBAccessor), new(*database.MySQL)))
 
 func InitializeAndRun(ctx context.Context, logger *log.Logger) (*handler.Handler, error) {
 	panic(
@@ -24,7 +26,7 @@ func InitializeAndRun(ctx context.Context, logger *log.Logger) (*handler.Handler
 			redis.NewRedisConfig,
 			cacheSet,
 			cache.New,
-			database.New,
+			dbSet,
 			restaurant.New,
 			handler.New,
 		),
