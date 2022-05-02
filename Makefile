@@ -1,4 +1,5 @@
 APP = tablefinder
+PKG = ...
 
 deps:
 	@go mod download
@@ -7,6 +8,9 @@ deps:
 wire:
 	@go get -d github.com/google/wire/cmd/wire
 	@cd cmd/$(APP) && wire
+
+test:
+	@go test -p 1 ./$(PKG)
 
 build:
 	@echo "building app"
