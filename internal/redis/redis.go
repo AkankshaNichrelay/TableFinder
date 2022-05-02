@@ -23,12 +23,6 @@ type Client struct {
 	logger *log.Logger
 }
 
-// NewRedisConfig return Redis client config
-func NewRedisConfig() *Config {
-	cfg := Config{}
-	return &cfg
-}
-
 // New creates a new redis client - TODO. This is just for wire.go
 func New(log *log.Logger, config *Config) *Client {
 	addr := fmt.Sprintf("%s:%d", config.Host, config.Port)

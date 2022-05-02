@@ -8,6 +8,7 @@ import (
 	"log"
 
 	"github.com/AkankshaNichrelay/TableFinder/internal/cache"
+	"github.com/AkankshaNichrelay/TableFinder/internal/config"
 	"github.com/AkankshaNichrelay/TableFinder/internal/database"
 	"github.com/AkankshaNichrelay/TableFinder/internal/handler"
 	"github.com/AkankshaNichrelay/TableFinder/internal/redis"
@@ -20,10 +21,12 @@ var cacheSet = wire.NewSet(redis.New, wire.Bind(new(cache.Accessor), new(*redis.
 
 var dbSet = wire.NewSet(database.New, wire.Bind(new(database.DBAccessor), new(*database.MySQL)))
 
-func InitializeAndRun(ctx context.Context, logger *log.Logger) (*handler.Handler, error) {
+func InitializeAndRun(ctx context.Context, logger *log.Logger, configFile string) (*handler.Handler, error) {
 	panic(
 		wire.Build(
-			redis.NewRedisConfig,
+			config.New,
+			config.NewRedisConfig,
+			config.NewDBConfig,
 			cacheSet,
 			cache.New,
 			dbSet,

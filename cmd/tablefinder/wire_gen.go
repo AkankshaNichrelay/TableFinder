@@ -9,6 +9,7 @@ package main
 import (
 	"context"
 	"github.com/AkankshaNichrelay/TableFinder/internal/cache"
+	"github.com/AkankshaNichrelay/TableFinder/internal/config"
 	"github.com/AkankshaNichrelay/TableFinder/internal/database"
 	"github.com/AkankshaNichrelay/TableFinder/internal/handler"
 	"github.com/AkankshaNichrelay/TableFinder/internal/redis"
@@ -19,11 +20,16 @@ import (
 
 // Injectors from wire.go:
 
-func InitializeAndRun(ctx context.Context, logger *log.Logger) (*handler.Handler, error) {
-	config := redis.NewRedisConfig()
-	client := redis.New(logger, config)
+func InitializeAndRun(ctx context.Context, logger *log.Logger, configFile string) (*handler.Handler, error) {
+	configConfig, err := config.New(configFile)
+	if err != nil {
+		return nil, err
+	}
+	redisConfig := config.NewRedisConfig(configConfig)
+	client := redis.New(logger, redisConfig)
 	cacheClient := cache.New(client)
-	mySQL, err := database.New(logger)
+	databaseConfig := config.NewDBConfig(configConfig)
+	mySQL, err := database.New(logger, databaseConfig)
 	if err != nil {
 		return nil, err
 	}

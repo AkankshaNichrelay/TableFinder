@@ -8,23 +8,23 @@ import (
 	"github.com/go-sql-driver/mysql"
 )
 
-// type Config struct {
-// 	Addr     string
-// 	Net      string
-// 	User     string
-// 	Password string
-// 	Database string
-// }
+type Config struct {
+	Addr     string
+	Net      string
+	User     string
+	Password string
+	Database string
+}
 
 // Mysql database
 type MySQL struct {
-	// config *Config
-	log *log.Logger
-	db  *sql.DB
+	config *Config
+	log    *log.Logger
+	db     *sql.DB
 }
 
 // New creates a new MySQL client instance
-func New(log *log.Logger) (*MySQL, error) {
+func New(log *log.Logger, cfg *Config) (*MySQL, error) {
 	// TODO: Put these values into config file
 	config := mysql.Config{
 		User:   "root",

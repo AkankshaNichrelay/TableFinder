@@ -10,6 +10,7 @@ import (
 	"syscall"
 )
 
+// Stop to gracefully shutdown application upon signal
 func Stop() {
 	shutdown := make(chan os.Signal, 1)
 	signal.Notify(shutdown, syscall.SIGINT, syscall.SIGTERM)
@@ -20,7 +21,7 @@ func Stop() {
 
 func main() {
 	logger := log.Default()
-	handler, err := InitializeAndRun(context.Background(), logger)
+	handler, err := InitializeAndRun(context.Background(), logger, "config.env")
 	if err != nil {
 		logger.Println(context.Background(), "Failed to initialize the app", "err", err)
 		os.Exit(2)
