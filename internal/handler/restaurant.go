@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -21,7 +22,8 @@ func (h *Handler) GetRestaurant(w http.ResponseWriter, r *http.Request) {
 	restaurant := chi.URLParam(r, "restaurant")
 	res, err := h.restaurants.GetRestaurant(restaurant)
 	if err != nil {
-		json.NewEncoder(w).Encode(err)
+		render.Status(r, http.StatusNotFound)
+		render.JSON(w, r, fmt.Sprintf("%+v", err))
 		return
 	}
 	render.JSON(w, r, res)
@@ -34,7 +36,8 @@ func (h *Handler) AddRestaurants(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&res.List)
 	if err != nil {
 		log.Println("addRestaurants Err while Decoding. err:", err)
-		w.Write([]byte("Internal Server Error"))
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, "Internal Server Error")
 		return
 	}
 
