@@ -5,13 +5,16 @@ A simulation of OpenTable app to browse and book tables at restaurants. (in the 
 * Add your environment variables in config.env
 * Run unit tests
     * All packages
-        * make test
+        * make docker-test
     * A single package
-        * make test PKG=[path to package]
+        * make docker-tests PKG=[path to package]
+* Running Docker Compose for MySQL and Redis
+    * make docker-up
+    * make docker-down
 * Build
-    * make build
+    * make docker-build
 * Run 
-    * make run
+    * make docker-run
 * Postman
     * Set the tablefinder_url to the local url of app. Example: localhost:3000
 
