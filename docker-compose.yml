@@ -1,4 +1,19 @@
 version: "3.9"
 
 # TODO: Add docker images for Redis and SQL for testing
-# TODO: Dockerize the app
+services:
+  tablefinder-mysql:
+    container_name: mysql
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tablefinder
+    ports:
+      - "3306:3306"
+
+  tablefinder-redis:
+    container_name: redis
+    image: redis:7.0.11
+    ports:
+      - "6379:6379"
+
