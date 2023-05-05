@@ -30,11 +30,12 @@ func New(log *log.Logger, cfg *Config) (*MySQL, error) {
 		User:   "root",
 		Passwd: "root",
 		Net:    "tcp",
-		Addr:   "127.0.0.1:3306",
+		Addr:   "docker.for.mac.localhost:3306",
 		DBName: "tablefinder",
 	}
 
 	db, err := sql.Open("mysql", config.FormatDSN())
+	log.Println("sql.Open", "connection string", config.FormatDSN(), "err", err)
 	if err != nil {
 		return nil, err
 	}
